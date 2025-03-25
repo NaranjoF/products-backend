@@ -1,0 +1,40 @@
+version: '3'
+services:
+  db:
+    env_file:
+      - .env
+    image: 'mysql:8.0'
+    cap_add:
+      - SYS_NICE
+    environment:
+      - 'MYSQL_ROOT_PASSWORD=${DB_PASSWORD}'
+      - 'MYSQL_DATABASE=${DB_NAME}'
+    ports:
+      - '${DB_PORT}:3306'
+    volumes:
+      - './data/mysql/:/var/lib/mysql'
+    networks:
+      - nest_network
+
+  nestjs:
+    build:
+      context: .
+    env_file:
+      - .env
+    ports:
+      - '8000:8000'
+    depends_on:
+      - db
+    environment:
+      - DB_HOST=db
+      - DB_PORT=3306
+      - DB_USER=root
+      - DB_PASSWORD=${DB_PASSWORD}
+      - DB_NAME=${DB_NAME}
+    networks:
+      - nest_network
+    restart: always
+
+networks:
+  nest_network:
+    driver: bridge
