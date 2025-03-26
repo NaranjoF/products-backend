@@ -28,7 +28,9 @@ export class ProductRepository implements IProductRepository {
   }
 
   async update(id: number, product: Product): Promise<Product> {
-    await this.productRepository.update(id, product);
+    if (Object.keys(product).length > 0) {
+      await this.productRepository.update(id, product);
+    }
     return await this.getById(id);
   }
 
