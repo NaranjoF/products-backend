@@ -16,7 +16,7 @@ export class ProductResponder {
     return products.map((product) => {
       return {
         ...product,
-        price_usd: product.price / Number(process.env.PRICE_USD),
+        price_usd: (product.price / Number(process.env.PRICE_USD)).toFixed(2),
       };
     });
   }
@@ -26,7 +26,7 @@ export class ProductResponder {
   ): Promise<ProductWithPriceUSD> {
     return {
       ...product,
-      price_usd: product.price / Number(process.env.PRICE_USD),
+      price_usd: (product.price / Number(process.env.PRICE_USD)).toFixed(2),
     };
   }
 
