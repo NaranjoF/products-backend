@@ -1,9 +1,8 @@
 import { Module } from '@nestjs/common';
-import { AppController } from './app.controller';
-import { AppService } from './app.service';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { DataSource } from 'typeorm';
 import { dataSourceOptions } from './configuration/orm.configuration';
+import { ProductModule } from './modules/product/product.module';
 
 @Module({
   imports: [
@@ -19,8 +18,9 @@ import { dataSourceOptions } from './configuration/orm.configuration';
         return new DataSource(options).initialize();
       },
     }),
+    ProductModule,
   ],
-  controllers: [AppController],
-  providers: [AppService],
+  controllers: [],
+  providers: [],
 })
 export class AppModule {}
