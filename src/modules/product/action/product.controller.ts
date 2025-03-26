@@ -11,23 +11,24 @@ import {
 import { ProductService } from '../domain/service/product.service';
 import { Product } from '../domain/repository/product.repository.interface';
 import { ProductWithPriceUSD } from './controller.interfaces';
-import { ProductResponser } from '../responders/product.responser';
+
 import { CreateProductDto } from './dtos/create.product.dto';
 import { MapperService } from '../domain/mapper.service';
 import { UpdateProductDto } from './dtos/update.product.dto';
+import { ProductResponder } from '../responders/product.responder';
 
 @Controller('products')
 export class ProductController {
   constructor(
     private readonly productService: ProductService,
-    private readonly productResponser: ProductResponser,
+    private readonly productResponder: ProductResponder,
     private readonly mapperService: MapperService,
   ) {}
 
   @Get()
   async getAllProducts(): Promise<ProductWithPriceUSD[]> {
     const products = await this.productService.getAllProducts();
-    return await this.productResponser.formatGetAllResponse(products);
+    return await this.productResponder.formatGetAllResponse(products);
   }
 
   @Get(':id')
@@ -35,7 +36,7 @@ export class ProductController {
     @Param('id', ParseIntPipe) id: number,
   ): Promise<ProductWithPriceUSD> {
     const product = await this.productService.getProductById(id);
-    return await this.productResponser.formatGetProductByIdResponse(product);
+    return await this.productResponder.formatGetProductByIdResponse(product);
   }
 
   @Post()
@@ -44,7 +45,7 @@ export class ProductController {
 
     const product = await this.productService.createProduct(productToCreate);
 
-    return await this.productResponser.formatCreateProductResponse(product);
+    return await this.productResponder.formatCreateProductResponse(product);
   }
 
   @Put(':id')
@@ -59,7 +60,7 @@ export class ProductController {
       productToUpdate,
     );
 
-    return await this.productResponser.formatUpdateProductResponse(product);
+    return await this.productResponder.formatUpdateProductResponse(product);
   }
 
   @Delete(':id')
@@ -68,6 +69,6 @@ export class ProductController {
   ): Promise<{ message: string }> {
     const result = await this.productService.deleteProduct(id);
 
-    return await this.productResponser.formatDeleteProductResponse(result);
+    return await this.productResponder.formatDeleteProductResponse(result);
   }
 }

@@ -5,7 +5,7 @@ import { PRODUCT_REPOSITORY } from './domain/repository/product.repository.inter
 import { ProductRepository } from './domain/repository/product.repository';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { ProductEntity } from './domain/repository/product.entity';
-import { ProductResponser } from './responders/product.responser';
+import { ProductResponder } from './responders/product.responder';
 import { MapperService } from './domain/mapper.service';
 
 @Module({
@@ -18,7 +18,7 @@ import { MapperService } from './domain/mapper.service';
       provide: PRODUCT_REPOSITORY,
       useClass: ProductRepository,
     },
-    ProductResponser,
+    ProductResponder,
     MapperService,
   ],
 })

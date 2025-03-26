@@ -3,7 +3,7 @@ import { Product } from '../domain/repository/product.repository.interface';
 import { ProductWithPriceUSD } from '../action/controller.interfaces';
 
 @Injectable()
-export class ProductResponser {
+export class ProductResponder {
   constructor() {}
 
   async formatGetAllResponse(
