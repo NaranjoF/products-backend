@@ -11,7 +11,7 @@ import { ProductModule } from './modules/product/product.module';
         ...dataSourceOptions,
         autoLoadEntities: true,
         extra: {
-          timezone: 'UTC',
+          timezone: '+03:00',
         },
       }),
       dataSourceFactory: async (options) => {
